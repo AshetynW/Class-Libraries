@@ -42,7 +42,7 @@ namespace Neuro.Classes
                 driver = new ChromeDriver(option);
                 
                 IWebElement elem;
-                string url = "https://cobui.fyiblue.com/cobui/login.jsp";
+                string url = "";
                 driver.Navigate().GoToUrl(url);
 
                 Console.WriteLine(driver.Title);
@@ -98,7 +98,7 @@ namespace Neuro.Classes
             ICollection<IWebElement> elemList;
             if (driver.Title == "COB Home")
             {
-                driver.Navigate().GoToUrl("https://cobui.fyiblue.com/cobui/search/advancesearch.html");
+                driver.Navigate().GoToUrl("");
                 elem = driver.FindElement(By.Id("memberCorporateEntity"));
                 var selectElement = new SelectElement(elem);
                 selectElement.SelectByIndex(SearchInformation.CorpEntityCode);
@@ -111,7 +111,7 @@ namespace Neuro.Classes
 
                 elem = driver.FindElement(By.Id("searchMembutton"));
                 elem.Click();
-                if (driver.Title == "COB Member Search Result")
+                if (driver.Title == "")
                 {
                     //find number of members returned, loop through until you have your member
                     elem = driver.FindElement(By.Id("printerFriendly"));
