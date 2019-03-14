@@ -38,7 +38,7 @@ namespace Neuro
             IWebElement elem;
             ICollection<IWebElement> elemList;
 
-            string url = "https://bluechip.claims.fyiblue.com/bluechip/login.do";
+            string url = "";
             driver.Navigate().GoToUrl(url);
 
             Console.WriteLine(driver.Title);
@@ -60,7 +60,7 @@ namespace Neuro
             }
             elem = driver.FindElement(By.Id("advancedSearch"));
             elem.Click();
-            driver.Navigate().GoToUrl("https://bluechip.claims.fyiblue.com/bluechip/ClaimAdvancedSearch.do");
+            driver.Navigate().GoToUrl("");
 
             elem = driver.FindElement(By.Name("documentControlNumber"));
             elem.SendKeys("0201" + IndexedClaim.guiFuncDcn);
@@ -404,11 +404,11 @@ namespace Neuro
             SHDocVw.InternetExplorer iePRAP = IELib.IEGet(shellWindows, "Statistics Header");
             if (iePRAP == null)
             {
-                iePRAP = IELib.IEGet(shellWindows, "https://bluechip.claims.fyiblue.com/bluechip/login.do");
+                iePRAP = IELib.IEGet(shellWindows, "");
                 if (iePRAP == null)
                 {
-                    IELib.NewBrowser(shellWindows, "https://bluechip.claims.fyiblue.com/bluechip/login.do", "https://bluechip.claims.fyiblue.com/bluechip/login.do");
-                    iePRAP = IELib.IEGet(shellWindows, "https://bluechip.claims.fyiblue.com/bluechip/login.do");
+                    IELib.NewBrowser(shellWindows, "", "");
+                    iePRAP = IELib.IEGet(shellWindows, "");
                 }
                 IELib.IeWait(iePRAP);
                 PRAP_Login(iePRAP, pass);
