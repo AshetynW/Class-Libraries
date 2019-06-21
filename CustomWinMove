@@ -1,0 +1,59 @@
+#Region "Form move control"
+    Private IsFormBeingDragged As Boolean = False
+    Private MouseDownX As Integer
+    Private MouseDownY As Integer
+    Private Sub panelHeader_MouseDown(sender As Object, e As MouseEventArgs) Handles pnHeader.MouseDown
+        If e.Button = MouseButtons.Left Then
+            IsFormBeingDragged = True
+            MouseDownX = e.X
+            MouseDownY = e.Y
+        End If
+    End Sub
+    Private Sub panelHeader_MouseEnter(sender As Object, e As EventArgs) Handles pnHeader.MouseEnter
+        Me.Cursor = Cursors.SizeAll
+    End Sub
+    Private Sub panelHeader_MouseLeave(sender As Object, e As EventArgs) Handles pnHeader.MouseLeave
+        Me.Cursor = Cursors.Arrow
+    End Sub
+    Private Sub panelHeader_MouseMove(sender As Object, e As MouseEventArgs) Handles pnHeader.MouseMove
+        If IsFormBeingDragged Then
+            Dim temp As Point = New Point()
+
+            If Me.tglOptionSnapToWindow.Checked Then
+                temp.Y = 0
+                temp.X = Me.Location.X + (e.X - MouseDownX)
+
+                If temp.X < 0 Then
+                    temp.X = 0
+                End If
+
+                If temp.X > SystemInformation.WorkingArea.Width - Me.Width Then
+                    temp.X = SystemInformation.WorkingArea.Width - Me.Width
+                End If
+            Else
+                temp.Y = Me.Location.Y + (e.Y - MouseDownY)
+                temp.X = Me.Location.X + (e.X - MouseDownX)
+            End If
+
+
+
+            Me.Location = temp
+            temp = Nothing
+        End If
+    End Sub
+    Private Sub panelHeader_MouseUp(sender As Object, e As MouseEventArgs) Handles pnHeader.MouseUp
+        If e.Button = MouseButtons.Left Then
+            IsFormBeingDragged = False
+        End If
+    End Sub
+    Private Sub pbResize_MouseMove(sender As Object, e As MouseEventArgs) Handles pbResize.MouseMove
+        If e.Button = Windows.Forms.MouseButtons.Left Then
+
+            If Me.tglOptionFitToDesktop.Checked Then
+                Me.Size = New Size(Me.Width, SystemInformation.WorkingArea.Height)
+            Else
+                Me.Size = New Size(Me.Width, Me.PointToClient(MousePosition).Y)
+            End If
+        End If
+    End Sub
+#End Region
